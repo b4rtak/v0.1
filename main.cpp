@@ -13,6 +13,13 @@ struct studentas {
     double galutinis;
 };
 
+double vidurkis(const vector<int>& pazymiai) {
+    if (pazymiai.empty()) return 0.0;
+    double suma = 0;
+    for (int p : pazymiai) suma += p;
+    return suma / pazymiai.size();
+}
+
 int main() {
     vector<studentas> studentai;
     int kiekis;
@@ -40,8 +47,10 @@ int main() {
         cout << "Egzamino rezultatas: ";
         cin >> s.egzaminas;
 
+        s.galutinis = 0.4 * vidurkis(s.nd) + 0.6 * s.egzaminas;
         studentai.push_back(s);
     }
 
     return 0;
 };
+
