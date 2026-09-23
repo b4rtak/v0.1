@@ -104,7 +104,13 @@ int main() {
     while (true) {
         cout << "\n1 - Ivesti studenta ranka\n2 - Generuoti pazymius atsitiktinai\n" << "3 - Rodyti rezultatus\n4 - Skaityti is failo\n0 - Baigti\nPasirinkimas: ";
         int pas;
-        cin >> pas;
+        if (!(cin >> pas)) {
+            if (cin.eof()) break;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Iveskite skaiciu\n";
+            continue;
+        }
         if (pas == 0) break;
         if (pas == 1 || pas == 2) studentai.push_back(ivestistudenta(pas == 2, gen));
                 else if (pas == 3) {
