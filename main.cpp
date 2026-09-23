@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <limits>
 
 using namespace std;
 
@@ -43,15 +44,12 @@ int main() {
         cout << "Pavarde: ";
         cin >> s.pavarde;
 
-        int n;
-        cout << "Kiek namu darbu?: ";
-        cin >> n;
-        for (int j = 0; j < n; j++) {
-            int pazymys;
-            cout << j + 1 << "-o namu darbo rezultatas: ";
-            cin >> pazymys;
-            s.nd.push_back(pazymys);
-        }
+        cout << "ND rezultatai (po viena eiluteje, baigti - tuscia eilute):\n";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        string eil;
+        while (getline(cin, eil) && !eil.empty())
+            s.nd.push_back(stoi(eil));
+        
 
         cout << "Egzamino rezultatas: ";
         cin >> s.egzaminas;
