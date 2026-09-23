@@ -53,10 +53,16 @@ studentas ivestistudenta(bool generuoti, mt19937& gen) {
         cout << "ND rezultatai (po viena eiluteje, baigti - tuscia eilute):\n";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         string eil;
-        while (getline(cin, eil) && !eil.empty())
-            s.nd.push_back(stoi(eil));
+        while (getline(cin, eil) && !eil.empty()) {
+            try { s.nd.push_back(stoi(eil)); }
+            catch (...) { cout << "Netinkamas skaicius, praleidziama\n"; }
+        }
         cout << "Egzamino rezultatas: ";
-        cin >> s.egzaminas;
+        while (!(cin >> s.egzaminas)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Iveskite skaiciu: ";
+        }
     }
     skaiciuoti(s);
     return s;
