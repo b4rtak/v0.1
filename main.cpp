@@ -5,13 +5,15 @@
 #include <algorithm>
 #include <random>
 #include <limits>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
 struct studentas {
     string vardas;
     string pavarde;
-    vector<int> nd;     // namu darbu rezultatai
+    vector<int> nd;     // nd rez
     int egzaminas = 0;
     double galVid = 0, galMed = 0;
 };
@@ -36,8 +38,8 @@ void skaiciuoti(studentas& s) {
     s.galMed = 0.4 * mediana(s.nd) + 0.6 * s.egzaminas;
 }
 
-Studentas ivestistudenta(bool generuoti, mt19937& gen) {
-    Studentas s;
+studentas ivestistudenta(bool generuoti, mt19937& gen) {
+    studentas s;
     cout << "Vardas: ";
     cin >> s.vardas;
     cout << "Pavarde: ";
@@ -60,7 +62,30 @@ Studentas ivestistudenta(bool generuoti, mt19937& gen) {
     return s;
 }
 
-void spausdinti(vector<Studentas>& studentai, ostream& out) {
+void skaitytifaila(const string& failas, vector<studentas>& studentai) {
+    ifstream in(failas);
+    if (!in) {
+        cout << "Nepavyko atidaryti failo " << failas << "\n";
+        return;
+    }
+    string eil;
+    getline(in, eil);  // praleidzia antraste
+    while (getline(in, eil)) {
+        istringstream ss(eil);
+        studentas s;
+        ss >> s.vardas >> s.pavarde;
+        int x;
+        while (ss >> x) s.nd.push_back(x);
+        if (s.nd.empty()) continue;   // tuscia arba bloga eilute
+        s.egzaminas = s.nd.back();    // paskutinis skaicius - egzaminas
+        s.nd.pop_back();
+        skaiciuoti(s);
+        studentai.push_back(s);
+    }
+    cout << "Is viso studentu: " << studentai.size() << "\n";
+}
+
+void spausdinti(vector<studentas>& studentai, ostream& out) {
     out << left << setw(20) << "Pavarde" << setw(20) << "Vardas"
         << setw(20) << "Galutinis (vid.)" << "Galutinis (med.)\n";
     out << string(76, '-') << "\n" << fixed << setprecision(2);
@@ -73,13 +98,18 @@ int main() {
     vector<studentas> studentai;
     mt19937 gen(random_device{}());
     while (true) {
-        cout << "\n1 - Ivesti studenta ranka\n2 - Generuoti pazymius atsitiktinai\n"
-             << "3 - Rodyti rezultatus\n0 - Baigti\nPasirinkimas: ";
+        cout << "\n1 - Ivesti studenta ranka\n2 - Generuoti pazymius atsitiktinai\n" << "3 - Rodyti rezultatus\n4 - Skaityti is failo\n0 - Baigti\nPasirinkimas: ";
         int pas;
         cin >> pas;
         if (pas == 0) break;
         if (pas == 1 || pas == 2) studentai.push_back(ivestistudenta(pas == 2, gen));
         else if (pas == 3) spausdinti(studentai, cout);
+        else if (pas == 4) {
+            string failas;
+            cout << "Failo pavadinimas: ";
+            cin >> failas;
+            skaitytifaila(failas, studentai);
+        }
         else cout << "Tokio pasirinkimo nera\n";
     }
     return 0;
