@@ -51,6 +51,12 @@ int main() {
         studentai.push_back(s);
     }
 
+    cout << "\n" << left << setw(15) << "Pavarde" << setw(15) << "Vardas" << "Galutinis (vid.)\n";
+    cout << string(50, '-') << "\n";
+    for (const auto& s : studentai) {
+        cout << left << setw(15) << s.pavarde << setw(15) << s.vardas << fixed << setprecision(2) << s.galutinis << "\n";
+    }
+
     return 0;
 };
 
