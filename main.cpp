@@ -107,7 +107,14 @@ int main() {
         cin >> pas;
         if (pas == 0) break;
         if (pas == 1 || pas == 2) studentai.push_back(ivestistudenta(pas == 2, gen));
-        else if (pas == 3) spausdinti(studentai, cout);
+                else if (pas == 3) {
+            if (studentai.size() <= 50) spausdinti(studentai, cout);
+            else {
+                ofstream f("rezultatai.txt");
+                spausdinti(studentai, f);
+                cout << "Studentu daug, rezultatai irasyti i rezultatai.txt\n";
+            }
+        }
         else if (pas == 4) {
             string failas;
             cout << "Failo pavadinimas: ";
