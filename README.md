@@ -1,62 +1,34 @@
-# Studentų balų skaičiuoklė
+# Studentų balų skaičiuoklė v0.2
 
-Objektinio programavimo užduotis. Programa suskaičiuoja studentų galutinį balą iš namų darbų ir egzamino.
+Programa sugeneruoja penkis studentų failus (1 000, 10 000, 100 000, 1 000 000 ir 10 000 000 įrašų), juos nuskaito, suskirsto studentus į dvi grupes ir išveda į du failus. Studentai, kurių galutinis balas mažesnis nei 5, įrašomi į vargsiukai.txt, o kiti į kietiakiai.txt. Galutinis balas skaičiuojamas taip: 0.4 * ND vidurkis + 0.6 * egzaminas.
 
-Formulė: galutinis = 0.4 * ND + 0.6 * egzaminas. ND skaičiuojamas dviem būdais, vidurkiu ir mediana.
+Kodas išskaidytas į kelis failus. studentas.h ir studentas.cpp yra studento struktūra, balų skaičiavimas, skirstymas ir rūšiavimas. failai.h ir failai.cpp yra failų generavimas, skaitymas, rašymas ir testavimas. main.cpp yra meniu.
 
-## Failai
+Paleidimas: g++ -O2 main.cpp studentas.cpp failai.cpp -o programa
 
-- `studentas.h` / `studentas.cpp` - studento struktūra, balų skaičiavimas, įvedimas, skirstymas į grupes, rūšiavimas
-- `failai.h` / `failai.cpp` - failų skaitymas, rašymas, generavimas, greičio testas
-- `main.cpp` - meniu
+Meniu 5 sugeneruoja failus, meniu 6 paleidžia greičio testą.
 
-## Meniu
+## Testavimas
 
-1. įvesti studentą ranka (ND baigiami tuščia eilute)
-2. sugeneruoti pažymius atsitiktinai
-3. rodyti rezultatus (rūšiuojama pagal pasirinktą parametrą)
-4. nuskaityti iš failo
-5. sugeneruoti 5 failus: 1 000, 10 000, 100 000, 1 000 000 ir 10 000 000 įrašų
-6. greičio testas su sugeneruotais failais
+Kiekvienas failas testuotas 3 kartus, rezultatai yra vidurkis sekundėmis. Studentai rūšiuoti pagal pavardę.
 
-## v0.2 greičio analizė
+Failų kūrimas:
+1 000 įrašų - 0.008 s
+10 000 įrašų - 0.016 s
+100 000 įrašų - 0.157 s
+1 000 000 įrašų - 1.582 s
+10 000 000 įrašų - 17.924 s
 
-Studentai skirstomi į dvi grupes pagal galutinį balą (pagal vidurkį): mažiau nei 5 eina į `vargsiukai.txt`, 5 ir daugiau į `kietiakiai.txt`.
+1 000 įrašų: nuskaitymas 0.005 s, dalijimas 0.000 s, rūšiavimas 0.0003 s, išvedimas 0.004 s, iš viso 0.010 s
 
-Testuojama su anksčiau sugeneruotais failais. Kiekvienas failas testuojamas 3 kartus, lentelėje vidurkis. Rūšiuota pagal pavardę.
+10 000 įrašų: nuskaitymas 0.047 s, dalijimas 0.001 s, rūšiavimas 0.003 s, išvedimas 0.015 s, iš viso 0.066 s
 
-Laikai sekundėmis:
+100 000 įrašų: nuskaitymas 0.469 s, dalijimas 0.007 s, rūšiavimas 0.035 s, išvedimas 0.167 s, iš viso 0.678 s
 
-| Įrašų | Nuskaitymas | Dalijimas | Rūšiavimas | Išvedimas į 2 failus | Iš viso |
-|---|---|---|---|---|---|
-| 1 000 | 0.005 | 0.000 | 0.0003 | 0.004 | 0.010 |
-| 10 000 | 0.047 | 0.001 | 0.003 | 0.015 | 0.066 |
-| 100 000 | 0.469 | 0.007 | 0.035 | 0.167 | 0.678 |
-| 1 000 000 | 4.672 | 0.101 | 0.533 | 1.467 | 6.774 |
-| 10 000 000 | 47.073 | 0.842 | 6.967 | 14.828 | 69.710 |
+1 000 000 įrašų: nuskaitymas 4.672 s, dalijimas 0.101 s, rūšiavimas 0.533 s, išvedimas 1.467 s, iš viso 6.774 s
 
-Failų kūrimo laikai:
+10 000 000 įrašų: nuskaitymas 47.073 s, dalijimas 0.842 s, rūšiavimas 6.967 s, išvedimas 14.828 s, iš viso 69.710 s
 
-| Įrašų | Laikas (s) |
-|---|---|
-| 1 000 | 0.008 |
-| 10 000 | 0.016 |
-| 100 000 | 0.157 |
-| 1 000 000 | 1.582 |
-| 10 000 000 | 17.924 |
+Daugiausiai laiko užima failo nuskaitymas. Padidinus įrašų skaičių 10 kartų, laikas irgi išauga maždaug 10 kartų.
 
-Išvados:
-- daugiausiai laiko užima failo nuskaitymas, su 10 mln. įrašų apie 2/3 viso laiko
-- padidinus įrašų skaičių 10 kartų, laikas irgi padidėja maždaug 10 kartų
-- dalijimas į grupes greitas, nes tai tik vienas perėjimas per vektorių
-- failo sukūrimas greitesnis už nuskaitymą, nes rašant nereikia skaidyti eilučių ir skaičiuoti balų
-
-Kompiuteris: AMD Ryzen 5 3600X (6 branduoliai, 3.8 GHz), 16 GB DDR4 RAM, SSD (NVMe)
-
-## Versijos
-
-v.pradinė - pagrindinis funkcionalumas, meniu, skaitymas iš failo
-
-v0.1 - rūšiavimas, išvedimas į failą, įvesties tikrinimas
-
-v0.2 - kodas išskaidytas į .h ir .cpp failus, failų generavimas, skirstymas į dvi grupes, greičio analizė
+Kompiuteris: AMD Ryzen 5 3600X, 16 GB RAM, SSD
