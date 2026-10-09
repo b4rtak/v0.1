@@ -31,11 +31,7 @@ bool skaitytiFaila(const string& failas, vector<Studentas>& studentai) {
     return true;
 }
 
-void spausdinti(vector<Studentas>& studentai, ostream& out) {
-    sort(studentai.begin(), studentai.end(), [](const Studentas& a, const Studentas& b) {
-        if (a.pavarde != b.pavarde) return a.pavarde < b.pavarde;
-        return a.vardas < b.vardas;
-    });
+void spausdinti(const vector<Studentas>& studentai, ostream& out) {
     out << left << setw(20) << "Pavarde" << setw(20) << "Vardas"
         << setw(20) << "Galutinis (Vid.)" << "Galutinis (Med.)\n";
     out << string(76, '-') << "\n" << fixed << setprecision(2);

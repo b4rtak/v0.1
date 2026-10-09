@@ -62,3 +62,12 @@ void padalinti(vector<Studentas>& studentai, vector<Studentas>& vargsiukai, vect
     studentai.clear();
     studentai.shrink_to_fit();
 }
+bool pagalPavarde(const Studentas& a, const Studentas& b) { return a.pavarde < b.pavarde; }
+bool pagalVarda(const Studentas& a, const Studentas& b) { return a.vardas < b.vardas; }
+bool pagalBala(const Studentas& a, const Studentas& b) { return a.galVid > b.galVid; }
+
+void rusiuoti(vector<Studentas>& studentai, int kriterijus) {
+    if (kriterijus == 2) sort(studentai.begin(), studentai.end(), pagalVarda);
+    else if (kriterijus == 3) sort(studentai.begin(), studentai.end(), pagalBala);
+    else sort(studentai.begin(), studentai.end(), pagalPavarde);
+}
