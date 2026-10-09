@@ -9,9 +9,11 @@ using namespace std;
 int main() {
     vector<Studentas> studentai;
     mt19937 gen(random_device{}());
+        int kiekiai[] = {1000, 10000, 100000, 1000000, 10000000};
     while (true) {
         cout << "\n1 - Ivesti studenta ranka\n2 - Generuoti pazymius atsitiktinai\n"
-             << "3 - Rodyti rezultatus\n4 - Skaityti is failo\n0 - Baigti\nPasirinkimas: ";
+             << "3 - Rodyti rezultatus\n4 - Skaityti is failo\n"
+             << "5 - Sugeneruoti 5 failus\n0 - Baigti\nPasirinkimas: ";
         int pas;
         if (!(cin >> pas)) {
             if (cin.eof()) break;
@@ -35,6 +37,9 @@ int main() {
             cin >> failas;
             if (skaitytiFaila(failas, studentai))
                 cout << "Is viso studentu: " << studentai.size() << "\n";
+        } else if (pas == 5) {
+            for (int kiekis : kiekiai)
+                generuotiFaila("gen" + to_string(kiekis) + ".txt", kiekis, gen);
         } else cout << "Tokio pasirinkimo nera!\n";
     }
     return 0;
