@@ -23,7 +23,7 @@ int main()
     {
         cout << "\n1 - Ivesti studenta ranka\n2 - Generuoti pazymius atsitiktinai\n"
              << "3 - Rodyti rezultatus\n4 - Skaityti is failo\n"
-             << "5 - Sugeneruoti 5 failus\n6 - Padalinti faila i 2 grupes\n0 - Baigti\nPasirinkimas: ";
+             << "5 - Sugeneruoti 5 failus\n6 - Testuoti greiti\n0 - Baigti\nPasirinkimas: ";
         int pas;
         if (!(cin >> pas))
         {
@@ -65,24 +65,11 @@ int main()
         }
         else if (pas == 6)
         {
-            string failas;
-            cout << "Failo pavadinimas: ";
-            cin >> failas;
-            vector<Studentas> visi, vargsiukai, kietiakiai;
-            if (skaitytiFaila(failas, visi))
-            {
-                padalinti(visi, vargsiukai, kietiakiai);
-                int k = pasirinktiKriteriju();
-                rusiuoti(vargsiukai, k);
-                rusiuoti(kietiakiai, k);
-                ofstream f1("vargsiukai.txt"), f2("kietiakiai.txt");
-                spausdinti(vargsiukai, f1);
-                spausdinti(kietiakiai, f2);
-                cout << "Vargsiuku: " << vargsiukai.size() << ", kietiakiu: " << kietiakiai.size() << "\n";
-            }
+            int k = pasirinktiKriteriju();
+            for (int kiekis : kiekiai)
+                testas("gen" + to_string(kiekis) + ".txt", k);
         }
-        else
-            cout << "Tokio pasirinkimo nera!\n";
-    }
-    return 0;
+    else cout << "Tokio pasirinkimo nera!\n";
+}
+return 0;
 }
