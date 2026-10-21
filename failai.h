@@ -10,7 +10,6 @@
 using namespace std;
 
 void generuotiFaila(const string& failas, int kiekis, mt19937& gen);
-void spausdinti(const vector<Studentas>& studentai, ostream& out);
 void testas(const string& failas, int kriterijus);
 
 template <typename Konteineris>
@@ -36,4 +35,14 @@ bool skaitytiFaila(const string& failas, Konteineris& studentai) {
         studentai.push_back(s);
     }
     return true;
+}
+
+template <typename Konteineris>
+void spausdinti(const Konteineris& studentai, ostream& out) {
+    out << left << setw(20) << "Pavarde" << setw(20) << "Vardas"
+        << setw(20) << "Galutinis (Vid.)" << "Galutinis (Med.)\n";
+    out << string(76, '-') << "\n" << fixed << setprecision(2);
+    for (const auto& s : studentai)
+        out << left << setw(20) << s.pavarde << setw(20) << s.vardas
+            << setw(20) << s.galVid << s.galMed << "\n";
 }
