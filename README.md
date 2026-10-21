@@ -32,3 +32,65 @@ Failų kūrimas:
 Daugiausiai laiko užima failo nuskaitymas. Padidinus įrašų skaičių 10 kartų, laikas irgi išauga maždaug 10 kartų.
 
 Kompiuteris: AMD Ryzen 5 3600X, 16 GB RAM, SSD
+
+
+
+
+
+## v0.3 konteinerių testavimas (vector ir list)
+
+Programa dabar veikia su dviem konteineriais: std::vector ir std::list. Konteineris pasirenkamas paleidus programą. Funkcijos padalinti, skaitytiFaila, spausdinti ir testas parašytos kaip šablonai (template), todėl tas pats kodas veikia su abiem. Rūšiavimui std::vector naudoja std::sort, o std::list turi savo funkciją list::sort.
+
+Įvedant studentą ranka, šalia jo duomenų išvedamas objekto adresas atmintyje.
+
+Testavimas atliktas kitame kompiuteryje nei v0.2, todėl failai sugeneruoti iš naujo programos 5 punktu (tokio paties formato ir dydžio). Abu konteineriai testuoti su tais pačiais failais. Kiekvienas failas testuotas 3 kartus, lentelėse vidurkis sekundėmis. Rūšiuota pagal pavardę.
+
+### Testavimo sistema
+
+| Parametras | Reikšmė |
+|---|---|
+| Kompiuteris | MacBook Air 13" (2025) |
+| CPU | Apple M4 |
+| RAM | 16 GB |
+| Diskas | SSD |
+| OS | macOS Tahoe 26.6.2 |
+
+### std::vector
+
+| Įrašų | Nuskaitymas | Dalijimas | Rūšiavimas | Išvedimas | Iš viso |
+|---|---|---|---|---|---|
+| 1 000 | 0.0030 | 0.00005 | 0.0001 | 0.0058 | 0.0089 |
+| 10 000 | 0.0145 | 0.0002 | 0.0009 | 0.0029 | 0.0184 |
+| 100 000 | 0.1112 | 0.0014 | 0.0077 | 0.0240 | 0.1442 |
+| 1 000 000 | 1.1700 | 0.0188 | 0.0931 | 0.2531 | 1.5350 |
+| 10 000 000 | 11.938 | 0.171 | 1.092 | 2.541 | 15.742 |
+
+### std::list
+
+| Įrašų | Nuskaitymas | Dalijimas | Rūšiavimas | Išvedimas | Iš viso |
+|---|---|---|---|---|---|
+| 1 000 | 0.0020 | 0.00004 | 0.00005 | 0.0005 | 0.0027 |
+| 10 000 | 0.0112 | 0.0002 | 0.0004 | 0.0024 | 0.0142 |
+| 100 000 | 0.1118 | 0.0023 | 0.0042 | 0.0243 | 0.1427 |
+| 1 000 000 | 1.2076 | 0.0262 | 0.0643 | 0.2479 | 1.5459 |
+| 10 000 000 | 11.899 | 0.325 | 0.769 | 2.545 | 15.538 |
+
+### Palyginimas (10 000 000 įrašų)
+
+| Etapas | vector | list | Greitesnis |
+|---|---|---|---|
+| Nuskaitymas | 11.938 | 11.899 | beveik vienodai |
+| Dalijimas į 2 grupes | 0.171 | 0.325 | vector ~1.9 karto |
+| Rūšiavimas | 1.092 | 0.769 | list ~1.4 karto |
+| Išvedimas į 2 failus | 2.541 | 2.545 | beveik vienodai |
+| Iš viso | 15.742 | 15.538 | beveik vienodai |
+
+### Išvados
+
+Nuskaitymas ir išvedimas į failus abiem konteineriais užtrunka beveik vienodai, nes didžiausią laiko dalį čia sudaro darbas su failu, o ne su konteineriu.
+
+Dalijimas į dvi grupes greitesnis su vector. Vektoriaus elementai laikomi atmintyje vienas šalia kito, todėl juos greita pereiti ir pridėti. Sąrašui kiekvienam naujam elementui reikia atskirai išskirti atmintį.
+
+Rūšiavimas greitesnis su list. Rūšiuojant sąrašą perkeliamos tik rodyklės tarp elementų, o vektoriuje reikia perkelti pačius studentų objektus.
+
+Bendras laikas abiem konteineriais beveik vienodas, nes daugiausiai laiko užima failo nuskaitymas. Mažiems failams (1 000 įrašų) rezultatai labai maži ir gali svyruoti, todėl išvados daromos iš didesnių failų.
