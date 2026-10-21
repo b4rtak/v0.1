@@ -54,14 +54,7 @@ Studentas ivestiStudenta(bool generuoti, mt19937& gen) {
     skaiciuoti(s);
     return s;
 } 
-void padalinti(vector<Studentas>& studentai, vector<Studentas>& vargsiukai, vector<Studentas>& kietiakiai) {
-    for (const auto& s : studentai) {
-        if (s.galVid < 5.0) vargsiukai.push_back(s);
-        else kietiakiai.push_back(s);
-    }
-    studentai.clear();
-    studentai.shrink_to_fit();
-}
+
 bool pagalPavarde(const Studentas& a, const Studentas& b) { return a.pavarde < b.pavarde; }
 bool pagalVarda(const Studentas& a, const Studentas& b) { return a.vardas < b.vardas; }
 bool pagalBala(const Studentas& a, const Studentas& b) { return a.galVid > b.galVid; }
