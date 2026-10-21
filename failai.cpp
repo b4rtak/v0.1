@@ -8,30 +8,6 @@
 
 using namespace std;
 
-bool skaitytiFaila(const string& failas, vector<Studentas>& studentai) {
-    ifstream in(failas);
-    if (!in) {
-        cout << "Nepavyko atidaryti failo " << failas << "\n";
-        return false;
-    }
-    string eil;
-    getline(in, eil);  // praleidziama antraste
-    while (getline(in, eil)) {
-        istringstream ss(eil);
-        Studentas s;
-        ss >> s.vardas >> s.pavarde;
-        int x;
-        while (ss >> x) s.nd.push_back(x);
-        if (s.nd.empty()) continue;   // tuscia ar bloga eilute
-        s.egzaminas = s.nd.back();    // paskutinis skaicius - egzaminas
-        s.nd.pop_back();
-        skaiciuoti(s);
-        s.nd.clear();                 // ND cia nebereikalingi, todel juos galima ismest, kad nenaudot memory
-        studentai.push_back(s);
-    }
-    return true;
-}
-
 void spausdinti(const vector<Studentas>& studentai, ostream& out) {
     out << left << setw(20) << "Pavarde" << setw(20) << "Vardas"
         << setw(20) << "Galutinis (Vid.)" << "Galutinis (Med.)\n";
