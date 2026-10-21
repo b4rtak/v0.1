@@ -10,7 +10,6 @@
 using namespace std;
 
 void generuotiFaila(const string& failas, int kiekis, mt19937& gen);
-void testas(const string& failas, int kriterijus);
 
 template <typename Konteineris>
 bool skaitytiFaila(const string& failas, Konteineris& studentai) {
@@ -45,4 +44,37 @@ void spausdinti(const Konteineris& studentai, ostream& out) {
     for (const auto& s : studentai)
         out << left << setw(20) << s.pavarde << setw(20) << s.vardas
             << setw(20) << s.galVid << s.galMed << "\n";
+}
+
+template <typename Konteineris>
+void testas(const string& failas, int kriterijus) {
+    double tSk = 0, tDal = 0, tRus = 0, tRas = 0;
+    for (int k = 0; k < 3; k++) {
+        Konteineris studentai, vargsiukai, kietiakiai;
+
+        clock_t t = clock();
+        if (!skaitytiFaila(failas, studentai)) return;
+        tSk += double(clock() - t) / CLOCKS_PER_SEC;
+
+        t = clock();
+        padalinti(studentai, vargsiukai, kietiakiai);
+        tDal += double(clock() - t) / CLOCKS_PER_SEC;
+
+        t = clock();
+        rusiuoti(vargsiukai, kriterijus);
+        rusiuoti(kietiakiai, kriterijus);
+        tRus += double(clock() - t) / CLOCKS_PER_SEC;
+
+        t = clock();
+        ofstream f1("vargsiukai.txt"), f2("kietiakiai.txt");
+        spausdinti(vargsiukai, f1);
+        spausdinti(kietiakiai, f2);
+        tRas += double(clock() - t) / CLOCKS_PER_SEC;
+    }
+    cout << "\n" << failas << " (3 testu vidurkis):\n"
+         << "Nuskaitymas:          " << tSk / 3 << " s\n"
+         << "Dalijimas i 2 grupes: " << tDal / 3 << " s\n"
+         << "Rusiavimas:           " << tRus / 3 << " s\n"
+         << "Isvedimas i 2 failus: " << tRas / 3 << " s\n"
+         << "Is viso:              " << (tSk + tDal + tRus + tRas) / 3 << " s\n";
 }

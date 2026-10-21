@@ -67,7 +67,7 @@ int main()
         {
             int k = pasirinktiKriteriju();
             for (int kiekis : kiekiai)
-                testas("gen" + to_string(kiekis) + ".txt", k);
+                testas<vector<Studentas>>("gen" + to_string(kiekis) + ".txt", k);
         }
     else cout << "Tokio pasirinkimo nera!\n";
 }
