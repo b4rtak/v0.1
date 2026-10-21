@@ -18,6 +18,7 @@ double mediana(vector<int> v);
 void skaiciuoti(Studentas& s);
 Studentas ivestiStudenta(bool generuoti, mt19937& gen);
 void rusiuoti(vector<Studentas>& studentai, int kriterijus);
+void rusiuoti(list<Studentas>& studentai, int kriterijus);
 
 template <typename Konteineris>
 void padalinti(Konteineris& studentai, Konteineris& vargsiukai, Konteineris& kietiakiai) {

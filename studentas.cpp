@@ -64,3 +64,9 @@ void rusiuoti(vector<Studentas>& studentai, int kriterijus) {
     else if (kriterijus == 3) sort(studentai.begin(), studentai.end(), pagalBala);
     else sort(studentai.begin(), studentai.end(), pagalPavarde);
 }
+
+void rusiuoti(list<Studentas>& studentai, int kriterijus) {
+    if (kriterijus == 2) studentai.sort(pagalVarda);
+    else if (kriterijus == 3) studentai.sort(pagalBala);
+    else studentai.sort(pagalPavarde);
+}
