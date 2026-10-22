@@ -94,3 +94,23 @@ Dalijimas į dvi grupes greitesnis su vector. Vektoriaus elementai laikomi atmin
 Rūšiavimas greitesnis su list. Rūšiuojant sąrašą perkeliamos tik rodyklės tarp elementų, o vektoriuje reikia perkelti pačius studentų objektus.
 
 Bendras laikas abiem konteineriais beveik vienodas, nes daugiausiai laiko užima failo nuskaitymas. Mažiems failams (1 000 įrašų) rezultatai labai maži ir gali svyruoti, todėl išvados daromos iš didesnių failų.
+
+
+
+### Testo rezultatų nuotraukos
+
+1 000, 10 000 ir 100 000 įrašų:
+
+![Mazi failai](img/testas-mazi.png)
+
+1 000 000 įrašų:
+
+![1 milijonas](img/testas-1m.png)
+
+10 000 000 įrašų:
+
+![10 milijonu](img/testas-10m.png)
+
+Atminties adresai įvedant ranka (vector ir list):
+
+![Adresai](img/adresai.png)
