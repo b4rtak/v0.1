@@ -21,10 +21,9 @@ void rusiuoti(vector<Studentas>& studentai, int kriterijus);
 void rusiuoti(list<Studentas>& studentai, int kriterijus);
 
 template <typename Konteineris>
-void padalinti(Konteineris& studentai, Konteineris& vargsiukai, Konteineris& kietiakiai) {
+void strategija1(const Konteineris& studentai, Konteineris& vargsiukai, Konteineris& kietiakiai) {
     for (const auto& s : studentai) {
         if (s.galVid < 5.0) vargsiukai.push_back(s);
         else kietiakiai.push_back(s);
     }
-    studentai = Konteineris();
 }

@@ -58,7 +58,7 @@ void testas(const string& failas, int kriterijus) {
         tSk += double(clock() - t) / CLOCKS_PER_SEC;
 
         t = clock();
-        padalinti(studentai, vargsiukai, kietiakiai);
+        strategija1(studentai, vargsiukai, kietiakiai);
         tDal += double(clock() - t) / CLOCKS_PER_SEC;
 
         t = clock();
