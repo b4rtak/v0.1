@@ -101,3 +101,45 @@ Dalijimas greitesnis su vector, nes jo elementai atmintyje yra vienas šalia kit
 ### v1.0
 
 Realizuotos 3 studentų dalijimo strategijos abiem konteineriams, pridėtas Makefile, sutvarkyta repozitorija. Failų generavimas pagreitintas (eilutė surenkama į vieną string ir įrašoma vienu kartu), failai uždaromi prieš matuojant laiką. Strategijų tyrimas aprašytas žemiau.
+
+## v1.0 dalijimo strategijų tyrimas
+
+1 strategija: studentai kopijuojami į du naujus konteinerius (vargšiukai ir kietiakai), o pradinis lieka. Taip kiekvienas studentas atmintyje yra du kartus, todėl ši strategija neefektyvi atminties atžvilgiu.
+
+2 strategija: naudojamas tik vienas naujas konteineris. Vargšiukas nukopijuojamas į jį ir ištrinamas iš pradinio su erase, todėl pradiniame lieka tik kietiakai.
+
+3 strategija: ta pati 2 strategija, tik su std::partition. partition vienu perėjimu perkelia kietiakus į priekį, o vargšiukus į galą. Tada vargšiukai nukopijuojami su assign ir ištrinami vienu erase nuo ribos iki galo. Iš pasiūlytų algoritmų pasirinkau partition, nes jis viską padaro per vieną perėjimą, o tvarka nesvarbi, nes po to vis tiek rūšiuojama. Būtų galima naudoti ir remove_copy_if su remove_if, bet tada konteineris pereinamas du kartus.
+
+Testuota su MacBook Air M4, 16 GB RAM, SSD, macOS Tahoe 26.6.2. Testuota su anksčiau sugeneruotais failais, kiekvienas failas 3 kartus, laikai yra vidurkis sekundėmis. Rūšiuota pagal pavardę.
+
+### Dalijimo į dvi grupes laikas
+
+| Įrašų | 1 str. vector | 1 str. list | 2 str. vector | 2 str. list | 3 str. vector | 3 str. list |
+|---|---|---|---|---|---|---|
+| 1 000 | 0.000086 | 0.000031 | 0.000499 | 0.000170 | 0.000015 | 0.000159 |
+| 10 000 | 0.000161 | 0.000133 | 0.047164 | 0.000134 | 0.000079 | 0.000140 |
+| 100 000 | 0.001185 | 0.001527 | 5.119750 | 0.001226 | 0.000611 | 0.001417 |
+| 1 000 000 | 0.017665 | 0.018717 | - | 0.012102 | 0.007082 | 0.014314 |
+| 10 000 000 | 0.222063 | 0.243093 | - | 0.127996 | 0.083838 | 0.158706 |
+
+2 strategijos su vector 1 000 000 ir 10 000 000 įrašų netestavau, nes jau su 100 000 įrašų tai truko apie 5 sekundes, o su milijonu būtų trukę valandas.
+
+### Bendras programos laikas
+
+| Įrašų | 1 str. vector | 1 str. list | 2 str. vector | 2 str. list | 3 str. vector | 3 str. list |
+|---|---|---|---|---|---|---|
+| 1 000 | 0.0054 | 0.0032 | 0.0232 | 0.0019 | 0.0050 | 0.0032 |
+| 10 000 | 0.0191 | 0.0141 | 0.0616 | 0.0142 | 0.0182 | 0.0145 |
+| 100 000 | 0.1422 | 0.1457 | 5.2666 | 0.1505 | 0.1453 | 0.1445 |
+| 1 000 000 | 1.5087 | 1.5382 | - | 1.4861 | 1.5373 | 1.5189 |
+| 10 000 000 | 15.7065 | 15.6414 | - | 15.1507 | 15.9576 | 15.6052 |
+
+### Išvados
+
+Su vector greičiausia yra 3 strategija. Su 10 000 000 įrašų ji padalina per 0.084 s, o 1 strategija per 0.222 s, tai yra apie 2.6 karto greičiau.
+
+2 strategija su vector yra labai lėta. Kiekvienas erase iš vektoriaus vidurio paslenka visus toliau esančius elementus, todėl padidinus įrašų 10 kartų laikas išauga apie 100 kartų (10 000 įrašų - 0.047 s, 100 000 - 5.1 s).
+
+Su list greičiausia yra 2 strategija. Sąraše erase tik perjungia rodykles tarp gretimų elementų, todėl trynimas greitas. Su 10 000 000 įrašų ji padalina per 0.128 s, kai 1 strategija per 0.243 s. 3 strategija su list lėtesnė už 2, nes partition sąraše keičia vietomis pačius studentų objektus.
+
+Bendras programos laikas beveik nepriklauso nuo strategijos, nes apie 75% laiko užima failo nuskaitymas. Dalijimas yra mažiausia programos dalis, bet būtent ten strategijos ir konteinerio pasirinkimas labiausiai keičia rezultatą.
