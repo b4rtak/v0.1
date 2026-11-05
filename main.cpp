@@ -70,12 +70,20 @@ void meniu(Konteineris &studentai, mt19937 &gen)
         else if (pas == 6)
         {
             int k = pasirinktiKriteriju();
+            int strat;
+            cout << "Strategija (1, 2 arba 3): ";
+            cin >> strat;
             for (int kiekis : kiekiai)
             {
-                cout << "\n=== VECTOR ===";
-                testas<vector<Studentas>>("gen" + to_string(kiekis) + ".txt", k);
-                cout << "\n=== LIST ===";
-                testas<list<Studentas>>("gen" + to_string(kiekis) + ".txt", k);
+                string failas = "gen" + to_string(kiekis) + ".txt";
+                cout << "\n=== VECTOR, " << strat << " strategija ===";
+                if (strat == 2 && kiekis > 100000)
+                    cout << "\n"
+                         << failas << ": praleista, per letai (vector::erase)\n";
+                else
+                    testas<vector<Studentas>>(failas, k, strat);
+                cout << "\n=== LIST, " << strat << " strategija ===";
+                testas<list<Studentas>>(failas, k, strat);
             }
         }
         else

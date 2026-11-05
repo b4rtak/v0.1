@@ -48,7 +48,7 @@ void spausdinti(const Konteineris& studentai, ostream& out) {
 }
 
 template <typename Konteineris>
-void testas(const string& failas, int kriterijus) {
+void testas(const string& failas, int kriterijus, int strategija) {
     double tSk = 0, tDal = 0, tRus = 0, tRas = 0;
     for (int k = 0; k < 3; k++) {
         Konteineris studentai, vargsiukai, kietiakiai;
@@ -58,7 +58,13 @@ void testas(const string& failas, int kriterijus) {
         tSk += double(clock() - t) / CLOCKS_PER_SEC;
 
         t = clock();
-        strategija1(studentai, vargsiukai, kietiakiai);
+        if (strategija == 1) {
+            strategija1(studentai, vargsiukai, kietiakiai);
+        } else {
+            if (strategija == 2) strategija2(studentai, vargsiukai);
+            else strategija3(studentai, vargsiukai);
+            kietiakiai.swap(studentai);
+        }
         tDal += double(clock() - t) / CLOCKS_PER_SEC;
 
         t = clock();
