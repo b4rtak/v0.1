@@ -27,3 +27,16 @@ void strategija1(const Konteineris& studentai, Konteineris& vargsiukai, Konteine
         else kietiakiai.push_back(s);
     }
 }
+
+template <typename Konteineris>
+void strategija2(Konteineris& studentai, Konteineris& vargsiukai) {
+    auto it = studentai.begin();
+    while (it != studentai.end()) {
+        if (it->galVid < 5.0) {
+            vargsiukai.push_back(*it);
+            it = studentai.erase(it);
+        } else {
+            ++it;
+        }
+    }
+}
