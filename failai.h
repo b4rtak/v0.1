@@ -33,6 +33,7 @@ bool skaitytiFaila(const string& failas, Konteineris& studentai) {
         s.nd.clear();                 
         studentai.push_back(s);
     }
+    in.close();
     return true;
 }
 
@@ -69,6 +70,8 @@ void testas(const string& failas, int kriterijus) {
         ofstream f1("vargsiukai.txt"), f2("kietiakiai.txt");
         spausdinti(vargsiukai, f1);
         spausdinti(kietiakiai, f2);
+        f1.close();
+        f2.close();
         tRas += double(clock() - t) / CLOCKS_PER_SEC;
     }
     cout << "\n" << failas << " (3 testu vidurkis):\n"

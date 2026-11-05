@@ -14,6 +14,7 @@ void generuotiFaila(const string& failas, int kiekis, mt19937& gen) {
         for (int j = 0; j < 15; j++) out << setw(6) << balas(gen);
         out << balas(gen) << "\n";
     }
+    out.close();
     double laikas = double(clock() - pradzia) / CLOCKS_PER_SEC;
     cout << failas << " sukurtas per " << laikas << " s\n";
 }
