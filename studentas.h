@@ -3,6 +3,7 @@
 #include <vector>
 #include <list>
 #include <random>
+#include <algorithm>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ void skaiciuoti(Studentas& s);
 Studentas ivestiStudenta(bool generuoti, mt19937& gen);
 void rusiuoti(vector<Studentas>& studentai, int kriterijus);
 void rusiuoti(list<Studentas>& studentai, int kriterijus);
+bool kietiakas(const Studentas& s);
 
 template <typename Konteineris>
 void strategija1(const Konteineris& studentai, Konteineris& vargsiukai, Konteineris& kietiakiai) {
@@ -39,4 +41,11 @@ void strategija2(Konteineris& studentai, Konteineris& vargsiukai) {
             ++it;
         }
     }
+}
+
+template <typename Konteineris>
+void strategija3(Konteineris& studentai, Konteineris& vargsiukai) {
+    auto riba = partition(studentai.begin(), studentai.end(), kietiakas);
+    vargsiukai.assign(riba, studentai.end());
+    studentai.erase(riba, studentai.end());
 }

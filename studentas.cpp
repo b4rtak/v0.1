@@ -70,3 +70,7 @@ void rusiuoti(list<Studentas>& studentai, int kriterijus) {
     else if (kriterijus == 3) studentai.sort(pagalBala);
     else studentai.sort(pagalPavarde);
 }
+
+bool kietiakas(const Studentas& s) {
+    return s.galVid >= 5.0;
+}
