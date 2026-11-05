@@ -143,3 +143,24 @@ Su vector greičiausia yra 3 strategija. Su 10 000 000 įrašų ji padalina per 
 Su list greičiausia yra 2 strategija. Sąraše erase tik perjungia rodykles tarp gretimų elementų, todėl trynimas greitas. Su 10 000 000 įrašų ji padalina per 0.128 s, kai 1 strategija per 0.243 s. 3 strategija su list lėtesnė už 2, nes partition sąraše keičia vietomis pačius studentų objektus.
 
 Bendras programos laikas beveik nepriklauso nuo strategijos, nes apie 75% laiko užima failo nuskaitymas. Dalijimas yra mažiausia programos dalis, bet būtent ten strategijos ir konteinerio pasirinkimas labiausiai keičia rezultatą.
+
+
+### Testų nuotraukos
+
+1 strategija:
+
+![1 strategija a](img/strategija1-a.png)
+
+![1 strategija b](img/strategija1-b.png)
+
+2 strategija:
+
+![2 strategija a](img/strategija2-a.png)
+
+![2 strategija b](img/strategija2-b.png)
+
+3 strategija:
+
+![3 strategija a](img/strategija3-a.png)
+
+![3 strategija b](img/strategija3-b.png)
